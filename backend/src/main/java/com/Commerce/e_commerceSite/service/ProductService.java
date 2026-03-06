@@ -18,6 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +51,7 @@ public class ProductService {
         }
     }
 
-    public Product createProduct(String tenantName, CreateProductRequest request, Authentication auth)
+    public Product createProduct(String tenantName, CreateProductRequest request, MultipartFile image, Authentication auth)
     {
 
         Tenant tenant = tenantRepo.findByName(tenantName)
@@ -72,13 +75,23 @@ public class ProductService {
         product.setQuantity(request.getQuantity());
         product.setTenant(tenant);
         product.setCategory(category);
-        product.setImage(request.getImage());
+        //product.setImage(request.getImage());
+
+        if(image != null && !image.isEmpty())
+        {
+            try {
+                product.setImage(image.getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         return productRepo.save(product);
     }
 
     public Page<Product> getProductsOfTenant(String tenantName, Pageable pageable)
     {
+        //tenantName = tenantName.toLowerCase();
         Tenant tenant = tenantRepo.findByName(tenantName)
                                   .orElseThrow(() -> new TenantNotFoundException("No such Tenant exists!"));
 
@@ -104,7 +117,7 @@ public class ProductService {
         productRepo.delete(product);
     }
 
-    public Product updateProductById(String tenantName, Long id, UpdateProductRequest request, Authentication auth)
+    public Product updateProductById(String tenantName, Long id, UpdateProductRequest request, MultipartFile image, Authentication auth)
     {
         Tenant tenant = tenantRepo.findByName(tenantName)
                                   .orElseThrow(() -> new TenantNotFoundException("No such tenant exists!"));
@@ -153,6 +166,15 @@ public class ProductService {
         if(request.getIsActive() != null)
         {
             updatedProduct.setIsActive(request.getIsActive());
+        }
+
+        if(image != null && !image.isEmpty())
+        {
+            try {
+                updatedProduct.setImage(image.getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         return productRepo.save(updatedProduct);

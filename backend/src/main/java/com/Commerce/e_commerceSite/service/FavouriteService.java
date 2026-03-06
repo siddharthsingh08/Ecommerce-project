@@ -59,11 +59,11 @@ public class FavouriteService {
     }
 
     @Transactional
-    public void removeFromFavourites(FavouriteRequest request, Authentication auth)
+    public void removeFromFavourites(Long productId, Authentication auth)
     {
         User user = userService.getOrCreateUser(auth);
 
-        Product product = productRepo.findById(request.getProductId())
+        Product product = productRepo.findById(productId)
                                      .orElseThrow(() -> new ProductNotFoundException("Product no longer available!"));
 
         favouriteRepo.deleteByUserAndProduct(user, product);

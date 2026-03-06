@@ -12,19 +12,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.math.BigDecimal;
 
 @RestController
+@RequestMapping("/tenant")
 public class TenantProductController {
 
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/{tenantName}/products")
+    @PostMapping(value = "/{tenantName}/products", consumes="multipart/form-data")
     @PreAuthorize("hasAnyRole('TENANT', 'ADMIN')")
-    public ResponseEntity<Product> createProduct(@PathVariable String tenantName, @RequestBody CreateProductRequest request, Authentication auth)
+    public ResponseEntity<Product> createProduct(@PathVariable String tenantName,
+                                                 @RequestParam String name,
+                                                 @RequestParam String description,
+                                                 @RequestParam BigDecimal price,
+                                                 @RequestParam Integer quantity,
+                                                 @RequestParam String categoryName,
+                                                 @RequestParam(required=false) MultipartFile image,
+                                                 Authentication auth)
     {
-        return new ResponseEntity<>(productService.createProduct(tenantName, request, auth), HttpStatus.OK);
+        CreateProductRequest request =  new CreateProductRequest();
+        request.setName(name);
+        request.setDescription(description);
+        request.setPrice(price);
+        request.setQuantity(quantity);
+        request.setCategoryName(categoryName);
+
+        return new ResponseEntity<>(productService.createProduct(tenantName, request, image, auth), HttpStatus.OK);
     }
+
 
     @GetMapping("/{tenantName}/products")
     public ResponseEntity<Page<Product>> getTenantProduct(@PathVariable String tenantName, Pageable pageable)
@@ -40,10 +59,28 @@ public class TenantProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("{tenantName}/products/{id}")
+    @PutMapping(value = "{tenantName}/products/{id}", consumes = "multipart/form-data")
     @PreAuthorize("hasAnyRole('TENANT', 'ADMIN')")
-    public ResponseEntity<Product> updateTenantProduct(@PathVariable String tenantName, @PathVariable Long id, @RequestBody UpdateProductRequest request, Authentication auth)
-    {
-        return new ResponseEntity<>(productService.updateProductById(tenantName, id, request, auth), HttpStatus.OK);
+    public ResponseEntity<Product> updateTenantProduct(
+            @PathVariable String tenantName,
+            @PathVariable Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) BigDecimal price,
+            @RequestParam(required = false) Integer quantity,
+            @RequestParam(required = false) String categoryName,
+            @RequestParam(required = false) MultipartFile image,
+            Authentication auth
+    ) {
+        UpdateProductRequest request = new UpdateProductRequest();
+        request.setName(name);
+        request.setDescription(description);
+        request.setPrice(price);
+        request.setQuantity(quantity);
+        request.setCategoryName(categoryName);
+
+        return ResponseEntity.ok(
+                productService.updateProductById(tenantName, id, request, image, auth)
+        );
     }
 }

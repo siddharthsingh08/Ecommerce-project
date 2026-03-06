@@ -25,10 +25,10 @@ public class FavouriteController {
         return ResponseEntity.ok("Added to favourites!");
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> removeFromFavourites(@RequestBody FavouriteRequest request, Authentication auth)
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<String> removeFromFavourites(@PathVariable Long productId, Authentication auth)
     {
-        favouriteService.removeFromFavourites(request, auth);
+        favouriteService.removeFromFavourites(productId, auth);
         return ResponseEntity.ok("Removed from favourites!");
     }
 

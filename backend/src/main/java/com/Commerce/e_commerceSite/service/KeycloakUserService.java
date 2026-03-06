@@ -78,4 +78,17 @@ public class KeycloakUserService {
                         realmResource.roles().get(role).toRepresentation()
                 ));
     }
+
+    public void deleteUser(String userId) {
+
+        RealmResource realmResource = keycloak.realm(realm);
+
+        Response response = realmResource
+                .users()
+                .delete(userId);
+
+        if (response.getStatus() != 204) {
+            throw new RuntimeException("Failed to delete user from Keycloak: " + response.getStatus());
+        }
+    }
 }

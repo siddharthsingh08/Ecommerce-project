@@ -4,7 +4,7 @@ import com.Commerce.e_commerceSite.dto.CreateTenantRequest;
 import com.Commerce.e_commerceSite.model.entity.Tenant;
 import com.Commerce.e_commerceSite.model.enums.TenantStatus;
 import com.Commerce.e_commerceSite.service.TenantService;
-import com.Commerce.e_commerceSite.service.UserService;
+// import com.Commerce.e_commerceSite.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,8 +41,8 @@ public class AdminTenantController {
         return new ResponseEntity<>(tenantService.getTenantById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/status")
-    public ResponseEntity<Tenant> changeTenantStatus(@PathVariable Long id, @RequestParam TenantStatus status, Authentication auth)
+    @PutMapping("/{id}/{status}")
+    public ResponseEntity<Tenant> changeTenantStatus(@PathVariable Long id, @PathVariable TenantStatus status, Authentication auth)
     {
         return new ResponseEntity<>(tenantService.changeStatus(id, status, auth), HttpStatus.OK);
     }

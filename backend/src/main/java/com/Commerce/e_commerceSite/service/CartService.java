@@ -241,7 +241,7 @@ public class CartService {
          order.setItems(orderItems);
          order.setTotalPrice(totalPrice);
          order.setTotalQuantity(totalQuantity);
-         order.setStatus(OrderStatus.Created);
+         order.setStatus(OrderStatus.CREATED);
 
          orderRepo.save(order);
          cart.getItems().clear();

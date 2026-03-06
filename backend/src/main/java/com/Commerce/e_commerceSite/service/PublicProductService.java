@@ -1,6 +1,8 @@
 package com.Commerce.e_commerceSite.service;
 
+import com.Commerce.e_commerceSite.dto.ProductRequest;
 import com.Commerce.e_commerceSite.dto.ProductResponse;
+import com.Commerce.e_commerceSite.exception.ProductNotFoundException;
 import com.Commerce.e_commerceSite.model.entity.Product;
 import com.Commerce.e_commerceSite.repo.ProductRepo;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,8 @@ public class PublicProductService {
 
     public Page<ProductResponse> getProducts(String tenant, String search, String category, Pageable pageable, Authentication auth)
     {
-        userService.getOrCreateUser(auth);
+        if (auth != null && auth.isAuthenticated()) {
+            userService.getOrCreateUser(auth);}
         Page<Product> products;
 
         if (tenant != null && search != null && category != null) {
@@ -103,6 +106,13 @@ public class PublicProductService {
         }
 
         return products.map(this::convertToDto);
+    }
+
+    public ProductResponse getProductDetails(Long productId)
+    {
+        Product product = productRepo.findById(productId).orElseThrow(() -> new ProductNotFoundException("This product does not exist!"));
+
+        return convertToDto(product);
     }
 
     private ProductResponse convertToDto(Product product) {

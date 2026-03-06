@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 
@@ -27,7 +28,9 @@ public class Product {
     @Column(nullable = false)
     private Boolean isActive = true;
 
-    @Lob
+
+    @JsonIgnore
+    @Column(columnDefinition = "BYTEA")
     private byte[] image;
 
     @ManyToOne

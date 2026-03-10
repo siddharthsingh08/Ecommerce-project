@@ -121,8 +121,15 @@ export default function ProductForm({
       />
 
       <button
+        disabled={
+          !name.trim() &&
+          !description.trim() &&
+          !category &&
+          price === "" &&
+          quantity === ""
+        }
         onClick={handleSubmit}
-        className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded cursor-pointer">
+        className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded disabled:bg-gray-400 disabled:cursor-not-allowed cursor-pointer">
         {buttonText}
       </button>
     </div>

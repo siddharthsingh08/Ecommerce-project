@@ -15,6 +15,31 @@ export default function CreateTenant() {
   const [password, setPassword] = useState("");
 
   const createTenant = async () => {
+
+    if(!name.trim()) {
+      toast.error("Tenant name is required");
+      return;
+    }
+    
+    if(!managerFirstName.trim()) {
+      toast.error("Manager's First Name is required");
+      return;
+    }
+    if(!managerLastName.trim()) {
+      toast.error("Manager's Last Name is required");
+      return;
+    }
+
+    if (!email.trim()) {
+      toast.error("Manager's Email is required");
+      return;
+    }
+    
+    if(!password.trim()) {
+      toast.error("Password is required");
+      return;
+    }
+
     try {
       await apiClient.post("/admin/tenant", {
         name,
@@ -54,12 +79,6 @@ export default function CreateTenant() {
           />
 
           <input
-            placeholder="Manager Email"
-            onChange={(e) => setEmail(e.target.value)}
-            className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-
-          <input
             placeholder="Manager First Name"
             onChange={(e) => setManagerFirstName(e.target.value)}
             className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -72,6 +91,12 @@ export default function CreateTenant() {
           />
 
           <input
+            placeholder="Manager Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+
+          <input
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
@@ -79,8 +104,16 @@ export default function CreateTenant() {
           />
 
           <button
+            disabled={
+              !name.trim() &&
+              !domain.trim() &&
+              !email.trim() &&
+              !managerFirstName.trim() &&
+              !managerLastName.trim() &&
+              !password.trim()
+            }
             onClick={createTenant}
-            className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded cursor-pointer">
+            className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed">
             Create Tenant
           </button>
         </div>

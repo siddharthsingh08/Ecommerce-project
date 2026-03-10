@@ -141,8 +141,9 @@ export default function Cart() {
           <h2 className="text-2xl font-semibold">Total: ₹{totalPrice}</h2>
 
           <button
+            disabled={items.length === 0}
             onClick={checkout}
-            className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded cursor-pointer">
+            className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed">
             Checkout
           </button>
         </div>

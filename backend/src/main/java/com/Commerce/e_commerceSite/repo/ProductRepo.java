@@ -70,4 +70,8 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     );
 
     List<Product> findByCategory(Category category);
+
+    //Page<Product> findByTenantAndTenantStatus(Tenant tenant, TenantStatus tenantStatus, Pageable pageable);
+
+    Page<Product> findByTenantAndIsActive(Tenant tenant, Boolean isActive, Pageable pageable);
 }

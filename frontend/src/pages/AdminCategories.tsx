@@ -40,6 +40,17 @@ export default function AdminCategories() {
 
   const createCategory = async () => {
     try {
+      const res = apiClient.get("/admin/category");
+
+      const existingCategory = (await res).data.content.find(
+        (cat: Category) => cat.name.toLowerCase() === name.trim().toLowerCase()
+      );
+
+      if (existingCategory) {
+        toast.error("Category with this name already exists!");
+        return;
+      }
+      
       await apiClient.post("/admin/category", { name });
 
       setName("");
@@ -90,7 +101,7 @@ export default function AdminCategories() {
           <button
             disabled={!name.trim()}
             onClick={createCategory}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer">
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed">
             Add
           </button>
         </div>
@@ -114,7 +125,7 @@ export default function AdminCategories() {
             <button
               disabled={page === 0}
               onClick={() => fetchCategories(page - 1)}
-              className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded disabled:opacity-50 cursor-pointer">
+              className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed">
               Previous
             </button>
 
@@ -125,7 +136,7 @@ export default function AdminCategories() {
             <button
               disabled={page + 1 >= totalPages}
               onClick={() => fetchCategories(page + 1)}
-              className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded disabled:opacity-50 cursor-pointer">
+              className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
               Next
             </button>
           </div>

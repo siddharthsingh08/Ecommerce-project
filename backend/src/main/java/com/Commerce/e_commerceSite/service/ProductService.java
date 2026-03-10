@@ -75,7 +75,7 @@ public class ProductService {
         product.setQuantity(request.getQuantity());
         product.setTenant(tenant);
         product.setCategory(category);
-        //product.setImage(request.getImage());
+
 
         if(image != null && !image.isEmpty())
         {
@@ -95,7 +95,7 @@ public class ProductService {
         Tenant tenant = tenantRepo.findByName(tenantName)
                                   .orElseThrow(() -> new TenantNotFoundException("No such Tenant exists!"));
 
-        return productRepo.findByTenant(tenant, pageable);
+        return productRepo.findByTenantAndIsActive(tenant, true, pageable);
     }
 
     public void deleteProduct(String tenantName, Long id, Authentication auth)
@@ -114,7 +114,8 @@ public class ProductService {
         if(tenant.getStatus() == TenantStatus.INACTIVE)
             throw new RuntimeException("Tenant is Inactive!");
 
-        productRepo.delete(product);
+        product.setIsActive(false);
+        productRepo.save(product);
     }
 
     public Product updateProductById(String tenantName, Long id, UpdateProductRequest request, MultipartFile image, Authentication auth)

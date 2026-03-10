@@ -1,7 +1,7 @@
 package com.Commerce.e_commerceSite.controller;
 
-import com.Commerce.e_commerceSite.service.KeycloakUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+// import com.Commerce.e_commerceSite.service.KeycloakUserService;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,8 +13,8 @@ public class TestController {
         return "Admin Access Granted";
     }
 
-    @Autowired
-    private KeycloakUserService keycloakUserService;
+    // @Autowired
+    // private KeycloakUserService keycloakUserService;
 
 //    @PostMapping("/test-create-user")
 //    public String testUser() {

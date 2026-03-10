@@ -20,22 +20,22 @@ export default function ConfirmModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
-      <div className="bg-[#1e1e1e] text-white p-6 rounded-lg w-96 shadow-lg">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+      <div className="bg-white text-gray-800 p-6 rounded-xl w-96 shadow-xl border border-gray-200">
         <h2 className="text-xl font-semibold mb-4">{title}</h2>
 
-        <p className="mb-6">{message}</p>
+        <p className="mb-6 text-gray-600">{message}</p>
 
         <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="bg-gray-500 px-4 py-2 rounded hover:bg-gray-600">
+            className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded cursor-pointer">
             {cancelText}
           </button>
 
           <button
             onClick={onConfirm}
-            className="bg-red-600 px-4 py-2 rounded hover:bg-red-700">
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded cursor-pointer">
             {confirmText}
           </button>
         </div>

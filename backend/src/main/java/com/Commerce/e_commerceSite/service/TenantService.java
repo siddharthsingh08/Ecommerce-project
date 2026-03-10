@@ -99,7 +99,9 @@ public class TenantService {
             keycloakUserService.deleteUser(user.getKeycloakUserId());
         } catch(Exception ignored) {}
 
-        productRepo.deleteAll(products);
+        products.forEach(p -> p.setIsActive(false));
+        productRepo.saveAll(products);
+
         if(user != null)
             userRepo.delete(user);
         tenantRepo.deleteById(id);

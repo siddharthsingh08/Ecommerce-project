@@ -30,9 +30,10 @@ export default function TenantProductCard({
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
-      {/* IMAGE */}
-      <div className="h-40 bg-gray-800 flex items-center justify-center overflow-hidden">
+    <div
+      onClick={() => navigate(`/public/products/${tenantName}/${product.id}`)}
+      className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md overflow-hidden cursor-pointer">
+      <div className="h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
         {!imgError ? (
           <img
             src={`http://localhost:8080/public/products/${product.id}/image`}
@@ -41,35 +42,37 @@ export default function TenantProductCard({
             onError={() => setImgError(true)}
           />
         ) : (
-          <span className="text-gray-500 text-xs">No Image</span>
+          <span className="text-gray-400 text-xs">No Image</span>
         )}
       </div>
 
-      {/* CONTENT */}
       <div className="p-4">
-        <h2 className="font-bold text-lg">{product.name}</h2>
+        <h2 className="font-semibold text-lg text-gray-800">{product.name}</h2>
 
-        <p className="text-gray-400 text-sm">{product.category.name}</p>
+        <p className="text-gray-500 text-sm">{product.category.name}</p>
 
-        <p className="text-green-400 font-bold text-xl mt-2">
+        <p className="text-green-600 font-bold text-xl mt-2">
           ₹{product.price}
         </p>
 
-        <p className="text-sm text-gray-400 mt-1">Stock: {product.quantity}</p>
+        <p className="text-sm text-gray-500 mt-1">Stock: {product.quantity}</p>
 
-        {/* ACTIONS */}
         <div className="flex gap-3 mt-4">
           <button
-            onClick={() =>
-              navigate(`/tenant/${tenantName}/products/${product.id}`)
-            }
-            className="bg-blue-500 px-3 py-1 rounded cursor-pointer">
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/tenant/${tenantName}/products/${product.id}`);
+            }}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded cursor-pointer">
             Edit
           </button>
 
           <button
-            onClick={() => onDelete(product.id)}
-            className="bg-red-500 px-3 py-1 rounded cursor-pointer">
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(product.id);
+            }}
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded cursor-pointer">
             Delete
           </button>
         </div>

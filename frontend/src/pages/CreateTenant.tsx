@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import apiClient from "../api/apiClient";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function CreateTenant() {
   const navigate = useNavigate();
@@ -24,60 +25,62 @@ export default function CreateTenant() {
         password,
       });
 
+      toast.success("Tenant Created Successfully!");
       navigate("/admin/tenant");
     } catch (err) {
+      toast.error("Failed to Create Tenant!");
       console.error(err);
     }
   };
 
   return (
-    <div className="bg-black text-white min-h-screen">
-      <Navbar search="" setSearch={() => {}} onSearch={() => {}} />
+    <div className="bg-gray-100 text-gray-800 min-h-screen">
+      <Navbar />
 
       <div className="max-w-xl mx-auto p-10">
-        <h1 className="text-3xl mb-6">Create Tenant</h1>
+        <h1 className="text-3xl font-semibold mb-6">Create Tenant</h1>
 
-        <div className="flex flex-col gap-4">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col gap-4">
           <input
             placeholder="Tenant Name"
             onChange={(e) => setName(e.target.value)}
-            className="p-2 border border-white rounded"
+            className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
             placeholder="Domain"
             onChange={(e) => setDomain(e.target.value)}
-            className="p-2 border border-white rounded"
+            className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
             placeholder="Manager Email"
             onChange={(e) => setEmail(e.target.value)}
-            className="p-2 border border-white rounded"
+            className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
             placeholder="Manager First Name"
             onChange={(e) => setManagerFirstName(e.target.value)}
-            className="p-2 border border-white rounded"
+            className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
             placeholder="Manager Last Name"
             onChange={(e) => setManagerLastName(e.target.value)}
-            className="p-2 border border-white rounded"
+            className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <input
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
-            className="p-2 border border-white rounded"
+            className="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <button
             onClick={createTenant}
-            className="bg-green-500 p-3 rounded cursor-pointer">
+            className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded cursor-pointer">
             Create Tenant
           </button>
         </div>

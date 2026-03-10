@@ -1,6 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
 import PublicProducts from "../pages/PublicProducts";
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
@@ -22,10 +20,6 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PublicProducts />} />
-
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/signup" element={<Signup />} />
 
         <Route path="/public/products" element={<PublicProducts />} />
 

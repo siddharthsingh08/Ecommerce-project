@@ -41,7 +41,7 @@ public class TenantProductController {
         request.setQuantity(quantity);
         request.setCategoryName(categoryName);
 
-        return new ResponseEntity<>(productService.createProduct(tenantName, request, image, auth), HttpStatus.OK);
+        return new ResponseEntity<>(productService.createProduct(tenantName, request, image, auth), HttpStatus.CREATED);
     }
 
 
@@ -59,7 +59,7 @@ public class TenantProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "{tenantName}/products/{id}", consumes = "multipart/form-data")
+    @PutMapping(value = "/{tenantName}/products/{id}", consumes = "multipart/form-data")
     @PreAuthorize("hasAnyRole('TENANT', 'ADMIN')")
     public ResponseEntity<Product> updateTenantProduct(
             @PathVariable String tenantName,

@@ -180,4 +180,8 @@ public class ProductService {
         return productRepo.save(updatedProduct);
 
     }
+
+    public Product getProductById(long id){
+        return productRepo.findById(id).orElseThrow(() ->  new ProductNotFoundException("Product not found!"));
+    }
 }

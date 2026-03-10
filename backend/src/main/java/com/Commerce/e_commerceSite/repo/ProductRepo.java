@@ -1,5 +1,6 @@
 package com.Commerce.e_commerceSite.repo;
 
+import com.Commerce.e_commerceSite.model.entity.Category;
 import com.Commerce.e_commerceSite.model.entity.Product;
 import com.Commerce.e_commerceSite.model.entity.Tenant;
 import com.Commerce.e_commerceSite.model.enums.TenantStatus;
@@ -68,4 +69,5 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
             Pageable pageable
     );
 
+    List<Product> findByCategory(Category category);
 }

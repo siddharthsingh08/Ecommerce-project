@@ -32,13 +32,11 @@ export default function CategorySelect({ value, onChange }: Props) {
       required
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="p-2 text-white border border-white rounded">
-      <option value="" className="text-black">
-        Select Category
-      </option>
+      className="p-2 border border-gray-300 rounded bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <option value="">Select Category</option>
 
       {categories.map((c) => (
-        <option key={c.id} value={c.name} className="text-black">
+        <option key={c.id} value={c.name}>
           {c.name}
         </option>
       ))}

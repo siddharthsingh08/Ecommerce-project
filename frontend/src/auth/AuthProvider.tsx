@@ -9,6 +9,7 @@ interface AuthContextType {
   logout: () => void;
   roles: string[];
   tenant?: string;
+  userName?: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,7 +18,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [roles, setRoles] = useState<string[]>([]);
   const [token, setToken] = useState<string | undefined>();
-  //const [initialized, setInitialized] = useState(false);
+  const [userName, setUserName] = useState<string | undefined>();
   const initialized = useRef(false);
   const [tenant, setTenant] = useState<string | undefined>();
   const [loading, setLoading] = useState(true);
@@ -39,6 +40,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setRoles((keycloak.tokenParsed as any)?.realm_access?.roles ?? []);
 
         setTenant((keycloak.tokenParsed as any)?.tenant);
+
+        setUserName(keycloak.tokenParsed?.preferred_username);
 
         setLoading(false); 
       });
@@ -68,6 +71,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         logout,
         roles,
         tenant,
+        userName,
       }}>
       {children}
     </AuthContext.Provider>

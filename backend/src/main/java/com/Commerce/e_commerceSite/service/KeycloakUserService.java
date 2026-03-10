@@ -1,5 +1,6 @@
 package com.Commerce.e_commerceSite.service;
 
+import com.Commerce.e_commerceSite.exception.DuplicateTenantException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
@@ -36,7 +37,7 @@ public class KeycloakUserService {
                 realmResource.users().search(username);
 
         if (!existing.isEmpty()) {
-            throw new RuntimeException("User already exists in Keycloak");
+            throw new DuplicateTenantException("User already exists in Keycloak");
         }
 
         UserRepresentation user = new UserRepresentation();

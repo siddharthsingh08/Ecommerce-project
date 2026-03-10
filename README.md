@@ -157,8 +157,11 @@ ROLE_USER
 Running the Backend
 
 1. Navigate to the backend directory.
-2. Run: mvn spring-boot:run
-3. Backend server starts at http://localhost:8080
+2. Update the database configurations
+3. Setup leycloak (preferably through docker)
+4. Update keycloak configurations in application.properties
+5. Run: mvn spring-boot:run
+6. Backend server starts at http://localhost:8080
 
 Running the Frontend
 

@@ -57,13 +57,6 @@ Database
 
 ---
 
-Multi-Tenancy Design =>
-
-All APIs are structured using tenant-based routing.
-Example:
-/tenant/{tenantName}/products
-/tenant/{tenantName}/orders
-This ensures strict data separation between different brands.
 
 Database Models
 

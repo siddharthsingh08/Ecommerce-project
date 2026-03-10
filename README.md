@@ -149,6 +149,11 @@ ROLE_ADMIN
 ROLE_TENANT
 ROLE_USER
 
+# Running Locally
+
+-Clone repo (git clone)
+
+
 Running the Backend
 
 1. Navigate to the backend directory.

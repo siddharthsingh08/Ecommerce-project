@@ -80,6 +80,7 @@ public class TenantService {
                 .orElseThrow(() -> new TenantNotFoundException("No such user exists!"));
     }
 
+    @Transactional
     public Tenant changeStatus(Long id, TenantStatus status, Authentication auth)
     {
         userService.getOrCreateUser(auth);

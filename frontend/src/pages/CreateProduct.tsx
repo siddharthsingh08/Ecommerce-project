@@ -27,8 +27,8 @@ export default function CreateProduct() {
         });
 
         toast.success("Product Created!");
-      } catch (err) {
-        toast.error("Failed to create Product!");
+      } catch (err: any) {
+        toast.error(err.response?.data?.message || "Failed to create Product!");
         console.log(err);
       }
 

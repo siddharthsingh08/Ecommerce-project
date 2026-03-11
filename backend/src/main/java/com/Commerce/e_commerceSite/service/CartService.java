@@ -45,6 +45,7 @@ public class CartService {
         });
     }
 
+    @Transactional
     public Cart addToCart(CreateCartItem item, Authentication auth)
     {
         if(item.getQuantity() <= 0)
@@ -128,6 +129,7 @@ public class CartService {
                            .items(items).build();
     }
 
+    @Transactional
     public CartResponse updateCart(UpdateCartItemRequest request, Authentication auth)
     {
         if(request.getQuantity() <= 0)
@@ -166,6 +168,7 @@ public class CartService {
         return viewCart(auth);
     }
 
+    @Transactional
     public CartResponse deleteCartItem(Long id, Authentication auth)
     {
         Cart cart = getOrCreateCart(auth);

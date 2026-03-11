@@ -7,6 +7,7 @@ import com.Commerce.e_commerceSite.model.entity.Order;
 import com.Commerce.e_commerceSite.model.entity.OrderItem;
 import com.Commerce.e_commerceSite.model.entity.User;
 import com.Commerce.e_commerceSite.repo.OrderRepo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +38,7 @@ public class OrderService {
         return orders.map(this::convertToDTO);
     }
 
+    @Transactional
     public OrderResponse updateStatus(UpdateOrderStatusRequest request) {
         Order order = orderRepo.findById(request.getOrderId()).orElseThrow(() -> new RuntimeException("Order does not exist!"));
 

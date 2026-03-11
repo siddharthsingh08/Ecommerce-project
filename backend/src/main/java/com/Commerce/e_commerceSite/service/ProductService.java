@@ -12,6 +12,7 @@ import com.Commerce.e_commerceSite.repo.CategoryRepo;
 import com.Commerce.e_commerceSite.repo.ProductRepo;
 import com.Commerce.e_commerceSite.repo.TenantRepo;
 import com.Commerce.e_commerceSite.repo.UserRepo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -98,6 +99,7 @@ public class ProductService {
         return productRepo.findByTenantAndIsActive(tenant, true, pageable);
     }
 
+    @Transactional
     public void deleteProduct(String tenantName, Long id, Authentication auth)
     {
         validateTenantAccess(tenantName, auth);
@@ -118,6 +120,7 @@ public class ProductService {
         productRepo.save(product);
     }
 
+    @Transactional
     public Product updateProductById(String tenantName, Long id, UpdateProductRequest request, MultipartFile image, Authentication auth)
     {
         Tenant tenant = tenantRepo.findByName(tenantName)
@@ -148,14 +151,8 @@ public class ProductService {
             updatedProduct.setPrice(request.getPrice());
         }
 
-        if(request.getQuantity() != null)
-        {
+        if(request.getQuantity() != null) {
             updatedProduct.setQuantity(request.getQuantity());
-        }
-
-        if(request.getImage() != null)
-        {
-            updatedProduct.setImage(request.getImage());
         }
 
         if(request.getCategoryName() != null) {

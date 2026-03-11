@@ -6,6 +6,7 @@ import com.Commerce.e_commerceSite.model.entity.Category;
 import com.Commerce.e_commerceSite.model.entity.Product;
 import com.Commerce.e_commerceSite.repo.CategoryRepo;
 import com.Commerce.e_commerceSite.repo.ProductRepo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +42,7 @@ public class CategoryService {
         return categoryRepo.findAll(pageable);
     }
 
+    @Transactional
     public void deleteCategory(String name, Authentication auth)
     {
         userService.getOrCreateUser(auth);

@@ -59,6 +59,7 @@ export default function PublicProducts() {
 
       params.page = pageNumber;
       params.size = 12;
+      params.sort = "id,desc";
 
       const res = await apiClient.get("/public/products", { params });
 

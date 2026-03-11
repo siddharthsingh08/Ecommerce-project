@@ -31,6 +31,7 @@ export default function Favourites() {
         params: {
           page: pageNumber,
           size: 8,
+          sort: "id,desc",
         },
       });
       console.log("Fetched favourites:", res.data.content);

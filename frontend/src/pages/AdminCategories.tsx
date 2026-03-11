@@ -27,7 +27,7 @@ export default function AdminCategories() {
   const fetchCategories = async (pageNumber = 0) => {
     try {
       const res = await apiClient.get("/admin/category", {
-        params: { page: pageNumber, size: 5 },
+        params: { page: pageNumber, size: 5, sort: "id,desc" },
       });
 
       setCategories(res.data.content);

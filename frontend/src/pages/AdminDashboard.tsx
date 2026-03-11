@@ -31,7 +31,7 @@ export default function AdminDashboard() {
   const fetchTenants = async (pageNumber = 0) => {
     try {
       const res = await apiClient.get("/admin/tenant", {
-        params: { page: pageNumber, size: 8 },
+        params: { page: pageNumber, size: 8, sort: "id,desc" },
       });
 
       setTenants(res.data.content);

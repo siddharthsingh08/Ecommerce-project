@@ -38,6 +38,7 @@ const Orders = () => {
         params: {
           page: pageNumber,
           size: 5,
+          sort: "id,desc",
         },
       });
 

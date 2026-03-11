@@ -41,6 +41,7 @@ export default function TenantDashboard() {
         params: {
           page: pageNumber,
           size: 8,
+          sort: "id,desc",
         },
       });
 

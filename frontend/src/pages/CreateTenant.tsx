@@ -15,17 +15,16 @@ export default function CreateTenant() {
   const [password, setPassword] = useState("");
 
   const createTenant = async () => {
-
-    if(!name.trim()) {
+    if (!name.trim()) {
       toast.error("Tenant name is required");
       return;
     }
-    
-    if(!managerFirstName.trim()) {
+
+    if (!managerFirstName.trim()) {
       toast.error("Manager's First Name is required");
       return;
     }
-    if(!managerLastName.trim()) {
+    if (!managerLastName.trim()) {
       toast.error("Manager's Last Name is required");
       return;
     }
@@ -34,8 +33,8 @@ export default function CreateTenant() {
       toast.error("Manager's Email is required");
       return;
     }
-    
-    if(!password.trim()) {
+
+    if (!password.trim()) {
       toast.error("Password is required");
       return;
     }
@@ -52,8 +51,8 @@ export default function CreateTenant() {
 
       toast.success("Tenant Created Successfully!");
       navigate("/admin/tenant");
-    } catch (err) {
-      toast.error("Failed to Create Tenant!");
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Failed to Create Tenant!");
       console.error(err);
     }
   };

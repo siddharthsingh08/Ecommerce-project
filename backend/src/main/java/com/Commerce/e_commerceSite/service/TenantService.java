@@ -50,8 +50,6 @@ public class TenantService {
         tenant.setDomain(request.getDomain());
         tenant.setStatus(TenantStatus.ACTIVE);
 
-        tenantRepo.save(tenant);
-
         keycloakUserService.createUser(
                 request.getName(),
                 request.getEmail(),
@@ -61,6 +59,12 @@ public class TenantService {
                 "ROLE_TENANT",
                 tenant.getName()
         );
+
+
+
+        tenantRepo.save(tenant);
+
+
 
         return tenant;
     }

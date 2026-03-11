@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DuplicateTenantException.class)
     public ResponseEntity<String> handleDuplicateTenant(DuplicateTenantException ex)
     {
-        return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
+        return ResponseEntity.status(HttpStatus.CONFLICT)
                              .body(ex.getMessage());
     }
 

@@ -33,7 +33,7 @@ export default function AdminOrders() {
   const fetchOrders = async (pageNumber = 0) => {
     try {
       const res = await apiClient.get("/orders/all", {
-        params: { page: pageNumber, size: 5 },
+        params: { page: pageNumber, size: 5, sort: "id,desc" },
       });
 
       setOrders(res.data.content);

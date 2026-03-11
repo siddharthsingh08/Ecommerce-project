@@ -18,19 +18,21 @@ interface Props {
 function ProductCard({ product }: Props) {
   const navigate = useNavigate();
   const [imgError, setImgError] = useState(false);
+  const isOutOfStock = product.quantity === 0;
 
   return (
     <div
-      onClick={() =>
+      onClick={() => {
+        if(!isOutOfStock){
         navigate(`/public/products/${product.tenant}/${product.id}`)
-      }
+        }}}
       className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full flex flex-col">
       <div className="h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
         {!imgError ? (
           <img
             src={`http://localhost:8080/public/products/${product.id}/image`}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover ${isOutOfStock ? "grayscale opacity-60" : ""}`}
             onError={() => setImgError(true)}
           />
         ) : (
@@ -52,6 +54,9 @@ function ProductCard({ product }: Props) {
         <p className="text-xl font-bold text-green-600 mb-2">
           ₹{product.price}
         </p>
+        {isOutOfStock && (
+          <p className="text-red-500">Out of Stock!</p>
+        )}
 
         <p
           onClick={(e) => {

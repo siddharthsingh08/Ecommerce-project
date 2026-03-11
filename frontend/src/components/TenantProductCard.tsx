@@ -28,17 +28,22 @@ export default function TenantProductCard({
 }: Props) {
   const navigate = useNavigate();
   const [imgError, setImgError] = useState(false);
+  const isOutOfStock = product.quantity === 0;
 
   return (
     <div
-      onClick={() => navigate(`/public/products/${tenantName}/${product.id}`)}
+      onClick={() => {
+        if (!isOutOfStock) {
+          navigate(`/public/products/${tenantName}/${product.id}`);
+        }
+      }}
       className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md overflow-hidden cursor-pointer">
       <div className="h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
         {!imgError ? (
           <img
             src={`http://localhost:8080/public/products/${product.id}/image`}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover ${isOutOfStock ? "grayscale opacity-60" : ""}`}
             onError={() => setImgError(true)}
           />
         ) : (
@@ -54,8 +59,13 @@ export default function TenantProductCard({
         <p className="text-green-600 font-bold text-xl mt-2">
           ₹{product.price}
         </p>
-
-        <p className="text-sm text-gray-500 mt-1">Stock: {product.quantity}</p>
+        {!isOutOfStock ? (
+          <p className="text-sm text-gray-500 mt-1">
+            Stock: {product.quantity}
+          </p>
+        ) : (
+          <p className="text-sm text-red-500 mt-1">OUT OF STOCK</p>
+        )}
 
         <div className="flex gap-3 mt-4">
           <button

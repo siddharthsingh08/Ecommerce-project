@@ -7,6 +7,7 @@ interface Favourite {
   id: number;
   name: string;
   price: number;
+  quantity: number;
   tenant: string;
   category?: string;
 }
@@ -68,10 +69,10 @@ export default function Favourites() {
                     id: item.id,
                     name: item.name,
                     price: item.price,
+                    quantity: item.quantity,
                     tenant: item.tenant,
                     category: item.category || "General",
                     description: "",
-                    quantity: 0,
                   }}
                 />
 

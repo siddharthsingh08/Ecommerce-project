@@ -19,7 +19,6 @@ export default function ProductDetails() {
   const { id } = useParams();
 
   const [product, setProduct] = useState<Product | null>(null);
-  const [quantity, setQuantity] = useState(0);
   const [isFavourite, setIsFavourite] = useState(false);
   const { isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
@@ -68,13 +67,12 @@ export default function ProductDetails() {
       return;
     }
 
-    const newQuantity = quantity + 1;
-    setQuantity(newQuantity);
+    
 
     try {
       await apiClient.post("/cart/add", {
         id: product.id,
-        quantity: newQuantity,
+        quantity: 1,
       });
 
       toast.success("Product added to cart!");

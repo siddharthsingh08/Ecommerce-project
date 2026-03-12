@@ -82,7 +82,7 @@ export default function ProductForm({
 
       <input
         type="number"
-        min="0"
+        //min="0"
         placeholder="Price"
         value={price}
         onChange={(e) => {
@@ -96,7 +96,7 @@ export default function ProductForm({
 
       <input
         type="number"
-        min="0"
+        //min="0"
         placeholder="Stock Quantity"
         value={quantity}
         onChange={(e) => {

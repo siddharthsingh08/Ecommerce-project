@@ -119,9 +119,13 @@ export default function Navbar() {
 
       {menuOpen && (
         <div className="flex flex-col gap-4 mt-4 md:hidden text-sm">
-          <Link to="/cart">Cart</Link>
-          <Link to="/orders">Orders</Link>
-          <Link to="/favourites">Favourites</Link>
+          {isAuthenticated && (
+            <>
+              <Link to="/cart">Cart</Link>
+              <Link to="/orders">Orders</Link>
+              <Link to="/favourites">Favourites</Link>{" "}
+            </>
+          )}
 
           {roles.includes("ROLE_TENANT") && (
             <Link to={`/tenant/${tenant}/products`}>My Store</Link>

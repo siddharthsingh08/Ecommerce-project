@@ -90,8 +90,9 @@ public class ProductService {
         return productRepo.save(product);
     }
 
-    public Page<Product> getProductsOfTenant(String tenantName, Pageable pageable)
+    public Page<Product> getProductsOfTenant(String tenantName, Pageable pageable, Authentication auth)
     {
+        validateTenantAccess(tenantName, auth);
         //tenantName = tenantName.toLowerCase();
         Tenant tenant = tenantRepo.findByName(tenantName)
                                   .orElseThrow(() -> new TenantNotFoundException("No such Tenant exists!"));

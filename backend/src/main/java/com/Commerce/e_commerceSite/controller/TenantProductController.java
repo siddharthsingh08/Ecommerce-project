@@ -46,9 +46,9 @@ public class TenantProductController {
 
 
     @GetMapping("/{tenantName}/products")
-    public ResponseEntity<Page<Product>> getTenantProduct(@PathVariable String tenantName, Pageable pageable)
+    public ResponseEntity<Page<Product>> getTenantProduct(@PathVariable String tenantName, Pageable pageable, Authentication auth)
     {
-        return new ResponseEntity<>(productService.getProductsOfTenant(tenantName, pageable), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getProductsOfTenant(tenantName, pageable, auth), HttpStatus.OK);
     }
 
     @DeleteMapping("/{tenantName}/products/{id}")

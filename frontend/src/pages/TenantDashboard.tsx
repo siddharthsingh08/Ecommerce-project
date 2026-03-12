@@ -33,6 +33,7 @@ export default function TenantDashboard() {
 
     didFetchProduct.current = true;
     fetchProducts(0);
+    
   }, []);
 
   const fetchProducts = async (pageNumber = 0) => {
@@ -48,8 +49,12 @@ export default function TenantDashboard() {
       setProducts(res.data.content);
       setPage(res.data.number);
       setTotalPages(res.data.totalPages);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      if (err.response?.status === 403 || err.response?.status === 401) {
+        toast.error("Unauthorized Tenant access");
+        navigate("/"); 
+      }
     }
   };
 

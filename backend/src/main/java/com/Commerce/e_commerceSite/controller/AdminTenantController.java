@@ -26,7 +26,7 @@ public class AdminTenantController {
     public ResponseEntity<Tenant> createTenant(@RequestBody CreateTenantRequest request, Authentication auth)
     {
         //return ResponseEntity.ok(tenantService.createTenant(request));
-        return new ResponseEntity<>(tenantService.createTenant(request, auth), HttpStatus.OK);
+        return new ResponseEntity<>(tenantService.createTenant(request, auth), HttpStatus.CREATED);
     }
 
     @GetMapping

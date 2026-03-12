@@ -57,7 +57,6 @@ Database
 
 ---
 
-
 Database Models
 
 1. Tenant
@@ -153,6 +152,11 @@ ROLE_USER
 
 -Clone repo (git clone)
 
+Setup Keycloak using Docker
+
+- Create a seperate folder called keycloak-setup
+- Add the yml file present in Docker folder in this repo
+- Run it using docker compose up -d
 
 Running the Backend
 

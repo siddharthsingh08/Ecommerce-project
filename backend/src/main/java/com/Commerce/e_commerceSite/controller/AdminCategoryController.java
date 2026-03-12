@@ -23,7 +23,7 @@ public class AdminCategoryController {
     @PostMapping("/category")
     public ResponseEntity<Category> createCategory(@RequestBody CreateCategoryRequest request, Authentication auth)
     {
-        return new ResponseEntity<>(categoryService.createCategory(request, auth), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.createCategory(request, auth), HttpStatus.CREATED);
     }
 
     @GetMapping("/category")

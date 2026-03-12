@@ -21,7 +21,7 @@ public class CartController {
     @PostMapping("/add")
     public ResponseEntity<Cart> addToCart(@RequestBody CreateCartItem item, Authentication auth)
     {
-        return new ResponseEntity<>(cartService.addToCart(item, auth), HttpStatus.OK);
+        return new ResponseEntity<>(cartService.addToCart(item, auth), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -46,6 +46,6 @@ public class CartController {
     public ResponseEntity<String> checkoutCart(Authentication auth)
     {
         cartService.checkout(auth);
-        return ResponseEntity.ok("Order Placed Successfully!");
+        return new ResponseEntity<>("Order Placed Successfully!", HttpStatus.CREATED);
     }
 }

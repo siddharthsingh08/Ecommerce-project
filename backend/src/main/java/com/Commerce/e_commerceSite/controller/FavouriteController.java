@@ -22,7 +22,7 @@ public class FavouriteController {
     public ResponseEntity<String> addFavourite(@RequestBody FavouriteRequest request, Authentication auth)
     {
         favouriteService.addToFavourite(request, auth);
-        return ResponseEntity.ok("Added to favourites!");
+        return new ResponseEntity<>("Added to favourites!", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{productId}")

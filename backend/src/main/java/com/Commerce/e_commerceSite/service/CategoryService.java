@@ -39,7 +39,7 @@ public class CategoryService {
 
     public Page<Category> getAllCategories(Pageable pageable)
     {
-        return categoryRepo.findAll(pageable);
+        return categoryRepo.findByIsActive(true, pageable);
     }
 
     @Transactional
@@ -54,6 +54,7 @@ public class CategoryService {
         products.forEach(p -> p.setIsActive(false));
         productRepo.saveAll(products);
 
-        categoryRepo.delete(category);
+        category.setIsActive(false);
+        categoryRepo.save(category);
     }
 }

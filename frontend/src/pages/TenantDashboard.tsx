@@ -61,10 +61,10 @@ export default function TenantDashboard() {
   const deleteProduct = async (id: number) => {
     try {
       await apiClient.delete(`/tenant/${tenant}/products/${id}`);
-      toast("Product Deleted Successfully!");
+      toast.success("Product Deleted Successfully!");
       fetchProducts();
     } catch (err) {
-      toast("Failed to Deleted Product!");
+      toast.error("Failed to Delete Product!");
       console.error(err);
     }
   };

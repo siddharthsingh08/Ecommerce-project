@@ -1,6 +1,8 @@
 package com.Commerce.e_commerceSite.repo;
 
 import com.Commerce.e_commerceSite.model.entity.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +13,5 @@ public interface CategoryRepo extends JpaRepository<Category, Long> {
 
     Optional<Category> findByName(String name);
 
+    Page<Category> findByIsActive(boolean b, Pageable pageable);
 }

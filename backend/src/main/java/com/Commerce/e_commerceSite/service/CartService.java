@@ -111,6 +111,7 @@ public class CartService {
         Cart cart = getOrCreateCart(auth);
 
         List<CartItemResponse> items = cart.getItems().stream()
+                                        .filter(item -> item.getProduct().getIsActive())
                                         .map(item -> CartItemResponse.builder()
                                                 .productId(item.getProduct().getId())
                                                 .productName(item.getProduct().getName())

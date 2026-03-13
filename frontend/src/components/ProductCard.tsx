@@ -23,9 +23,10 @@ function ProductCard({ product }: Props) {
   return (
     <div
       onClick={() => {
-        if(!isOutOfStock){
-        navigate(`/public/products/${product.tenant}/${product.id}`)
-        }}}
+        if (!isOutOfStock) {
+          navigate(`/public/products/${product.tenant}/${product.id}`);
+        }
+      }}
       className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer h-full flex flex-col">
       <div className="h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
         {!imgError ? (
@@ -54,8 +55,12 @@ function ProductCard({ product }: Props) {
         <p className="text-xl font-bold text-green-600 mb-2">
           ₹{product.price}
         </p>
-        {isOutOfStock && (
-          <p className="text-red-500">Out of Stock!</p>
+        {!isOutOfStock ? (
+          <p className="text-sm text-gray-500 mt-1">
+            Stock: {product.quantity}
+          </p>
+        ) : (
+          <p className="text-sm text-red-500 mt-1">OUT OF STOCK</p>
         )}
 
         <p
